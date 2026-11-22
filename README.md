@@ -32,6 +32,13 @@ Deploy by uploading `dist/` to any static host. `trailingSlash: 'always'` and
 `build.format: 'directory'` mean every route is a folder with an `index.html`, so
 plain file hosting works without rewrite rules.
 
+## Deployed
+
+- **GitHub:** https://github.com/Zurin2/cashiko-website (public, `main` branch)
+- **Live:** https://cashiko-website.vercel.app
+- **Redeploy:** push to `main`, or run `vercel deploy --prod --yes` from the project root.
+  Vercel auto-detects Astro (build `npm run build`, output `dist`).
+
 ## Structure
 
 ```text
