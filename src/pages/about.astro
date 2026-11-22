@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../lib/site.js';
+
+const founders = [
+  { name: 'Xyrille Nuñez', initials: 'XN' },
+  { name: 'Jose Miguel Esperat', initials: 'JE' },
+  { name: 'Emmanuel Javier', initials: 'EJ' },
+];
+
+const principles = [
+  {
+    title: 'Small enough to learn in one sitting',
+    body: 'If a feature needs a tutorial, it is the wrong feature. Every screen in CashIko is built around a habit the store already has.',
+  },
+  {
+    title: 'Your records are not a product',
+    body: 'We do not sell store data, and we do not pool one store’s numbers to advise another. What happens in your tindahan stays in your account.',
+  },
+  {
+    title: 'Profit means profit',
+    body: 'Gross sales flatter everyone. We subtract the cost of goods and the real expenses before we call a number profit — even when the answer is uncomfortable.',
+  },
+];
+
+const next = [
+  { title: 'E-wallet billing', body: 'GCash and Maya payments for the subscription itself, so nobody has to wait for a manual activation.' },
+  { title: 'Deeper branch comparison', body: 'More than a top-branch line: side-by-side margins, per-branch dead stock, and which branch deserves the next restock.' },
+  { title: 'More Filipino coverage', body: 'The interface is already bilingual. We are finishing the remaining edge cases so nothing falls back to English mid-sentence.' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About CashIko',
+  url: new URL('/about/', SITE.url).href,
+  mainEntity: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    email: SITE.email,
+    foundingDate: SITE.founded,
+    founder: founders.map((person) => ({ '@type': 'Person', name: person.name })),
+  },
+};
+---
+<BaseLayout
+  title="About"
+  description="CashIko is built by three co-founders in the Philippines for the sari-sari stores, karinderyas and small shops that keep local commerce running."
+  jsonLd={jsonLd}
+>
+  <PageHero
+    eyebrow="About"
+    title="We build the ledger we wished our neighbourhood stores had."
+    lead="CashIko exists because a store can be busy all day and still not know whether it made money. That is not a discipline problem — it is a tooling problem."
+  />
+
+  <!-- Story -->
+  <section class="shell py-14 md:py-20" data-reveal>
+    <div class="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
+      <div>
+        <p class="eyebrow">The starting point</p>
+        <h2 class="mt-3 text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">A notebook, a wall list, and a guess.</h2>
+      </div>
+      <div class="max-w-2xl space-y-4 text-[0.9375rem] leading-relaxed text-forest-muted">
+        <p>
+          Walk into almost any sari-sari store in the Philippines and you will find the same three things: a
+          notebook with columns for <em>benta</em> and <em>utang</em>, a list of names written on the wall, and an
+          owner who can tell you exactly who owes what — from memory.
+        </p>
+        <p>
+          The records are there. What is missing is arithmetic: what the goods cost, what the store spent, and
+          what is actually left. That number usually arrives a month late, if it arrives at all.
+        </p>
+        <p>
+          CashIko keeps the habit and removes the guesswork. Record the sale the way you already would — three
+          taps instead of a pen — and the stock, the ledger and the profit update themselves.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="border-y border-warm/60 bg-white/50">
+    <div class="shell py-14 md:py-20">
+      <div class="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
+        <div>
+          <p class="eyebrow">The team</p>
+          <h2 class="mt-3 text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">Three co-founders, one product.</h2>
+          <p class="mt-4 max-w-sm text-sm leading-relaxed text-forest-muted">
+            CashIko is built end to end by the three of us — the product you use, the reports you read and the
+            support you get. Questions go to the team, not to a ticket queue.
+          </p>
+          <a href={`mailto:${SITE.email}`} class="link-quiet mt-4 inline-block text-sm font-medium">Talk to us →</a>
+        </div>
+
+        <ul class="divide-y divide-warm/60 border-t border-warm/60" data-stagger>
+          {founders.map((person, index) => (
+            <li class="flex items-center gap-5 py-6">
+              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-cream font-display text-lg font-semibold text-forest" aria-hidden="true">
+                {person.initials}
+              </span>
+              <div class="min-w-0 flex-1">
+                <p class="font-display text-lg leading-tight text-forest-dark">{person.name}</p>
+                <p class="mt-0.5 text-[0.8125rem] text-forest-muted">Co-founder</p>
+              </div>
+              <span class="tabular hidden text-[11px] text-warm sm:block">0{index + 1}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="shell py-14 md:py-20">
+    <p class="eyebrow">How we build</p>
+    <h2 class="mt-3 max-w-xl text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">
+      Three rules we do not bend.
+    </h2>
+    <ol class="mt-8 grid gap-8 border-t border-warm/60 pt-8 md:grid-cols-3 md:gap-10" data-stagger>
+      {principles.map((principle, index) => (
+        <li>
+          <span class="tabular text-[11px] font-semibold text-mango-dark">0{index + 1}</span>
+          <h3 class="mt-2 text-[1.0625rem] leading-snug text-forest-dark">{principle.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-forest-muted">{principle.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- Next -->
+  <section class="shell pb-4">
+    <div class="rounded-xl border border-warm bg-white/60 p-6 md:p-8">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 class="text-lg text-forest-dark">What we are working on</h2>
+        <p class="text-[11px] uppercase tracking-wide text-forest-muted">Direction, not a promise of dates</p>
+      </div>
+      <ul class="mt-6 grid gap-6 md:grid-cols-3" data-stagger>
+        {next.map((item) => (
+          <li class="border-t border-warm/60 pt-4">
+            <h3 class="text-sm font-semibold text-forest-dark">{item.title}</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-forest-muted">{item.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="See whether it fits your store."
+    body="Fourteen days, no card. If it does not save you time in the first week, tell us why — we read every reply."
+  />
+</BaseLayout>

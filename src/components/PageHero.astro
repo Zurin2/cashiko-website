@@ -1,0 +1,28 @@
+---
+/**
+ * Interior page opener. Editorial: left-aligned by default, with an optional
+ * eyebrow used as a section index rather than a decorative pill.
+ *
+ * Children rise in sequence on load (see [data-hero] in global.css); the
+ * numbering is set here so no page has to repeat it.
+ */
+const { eyebrow, title, lead, align = 'left' } = Astro.props;
+const alignment = align === 'center' ? 'mx-auto text-center items-center' : '';
+const hasSlot = Astro.slots.has('default');
+---
+<section class="border-b border-warm/60">
+  <div class="shell pb-14 pt-16 md:pb-20 md:pt-24">
+    <div class:list={['flex max-w-3xl flex-col gap-5', alignment]} data-hero>
+      {eyebrow && <p class="eyebrow" style="--i:0">{eyebrow}</p>}
+      <h1 class="text-[2.1rem] leading-[1.08] text-forest-dark sm:text-[2.75rem] md:text-[3.1rem]" style="--i:1">
+        {title}
+      </h1>
+      {lead && <p class="max-w-2xl text-[1.0625rem] leading-relaxed text-forest-muted md:text-lg" style="--i:2">{lead}</p>}
+      {hasSlot && (
+        <div style="--i:3">
+          <slot />
+        </div>
+      )}
+    </div>
+  </div>
+</section>

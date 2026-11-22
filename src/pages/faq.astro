@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../lib/site.js';
+
+const groups = [
+  {
+    title: 'Getting started',
+    items: [
+      {
+        q: 'What exactly is CashIko?',
+        a: 'A business companion for small Philippine stores. It keeps your stock, records sales in three taps, tracks utang per customer, logs expenses, and shows the profit actually left at the end of the day.',
+      },
+      {
+        q: 'Do I need to install an app?',
+        a: 'No. CashIko runs in the browser on any phone, tablet or laptop. Sign in and it works — there is nothing to download from an app store.',
+      },
+      {
+        q: 'Does it work without internet?',
+        a: 'CashIko needs a connection to record a sale, because your records live on our servers so every device sees the same numbers. On a weak signal, wait for the page to finish saving before closing it.',
+      },
+      {
+        q: 'How long does setup take?',
+        a: 'Onboarding asks for your store name, type and location, then you add products. Ten items is enough to see a useful dashboard — most owners finish in under fifteen minutes.',
+      },
+      {
+        q: 'Can I import my existing price list?',
+        a: 'There is no bulk spreadsheet importer yet. The fastest path is to add the ten items you sell most often; everything else can be added as you go.',
+      },
+    ],
+  },
+  {
+    title: 'Plans and billing',
+    items: [
+      {
+        q: 'How does the free trial work?',
+        a: 'Fourteen days with the full product, no credit card. When the trial ends you choose Basic at ₱99/month or Premium at ₱199/month.',
+      },
+      {
+        q: 'Can I switch between Basic and Premium?',
+        a: 'Yes, from Settings. Upgrading unlocks branches and the assistant immediately. Downgrading keeps every record you already have — you simply stop seeing multi-branch views.',
+      },
+      {
+        q: 'How do I pay for a subscription?',
+        a: 'Billing is monthly in Philippine pesos. GCash and Maya payments are rolling out; until they are live, the team arranges payment with you directly after you start.',
+      },
+      {
+        q: 'Do I need a card to start?',
+        a: 'No. Nothing is charged during the trial, and no card details are collected to begin.',
+      },
+    ],
+  },
+  {
+    title: 'Using CashIko',
+    items: [
+      {
+        q: 'Is utang a payment method?',
+        a: 'No — and that distinction matters. Utang is a debt record attached to a customer. A sale paid in cash, GCash or Maya is money received; a sale on utang is money owed. CashIko keeps them separate so your cash total is never inflated by promises.',
+      },
+      {
+        q: 'Can I correct a sale I recorded by mistake?',
+        a: 'Yes. Voiding a sale returns the stock and removes the utang entry created with it, so the ledger and the shelf agree again.',
+      },
+      {
+        q: 'Can two people use the same account?',
+        a: 'Yes. One subscription covers the store, not the device — the counter phone, the owner’s phone and a laptop all see the same records.',
+      },
+      {
+        q: 'How do multiple branches work?',
+        a: 'Premium tracks each branch separately: sales, transactions and profit per branch, plus a filter you can apply anywhere in the app. Deactivating a branch never deletes its history.',
+      },
+      {
+        q: 'Can I use Filipino instead of English?',
+        a: 'Yes. Settings has an English / Filipino switch that changes the whole interface. Product names, customer names and notes are never translated.',
+      },
+    ],
+  },
+  {
+    title: 'Data and privacy',
+    items: [
+      {
+        q: 'Who can see my store’s records?',
+        a: 'Only accounts belonging to your business. Records are scoped to your business, and product photos are served through private, expiring links rather than public URLs.',
+      },
+      {
+        q: 'Do you sell my data?',
+        a: 'No. Store data is not sold, and one store’s numbers are never pooled to advise another. The privacy policy lists exactly what is collected and why.',
+      },
+      {
+        q: 'Is CashIko a BIR-accredited POS?',
+        a: 'No. CashIko is a record-keeping tool for the owner, not a BIR-accredited point-of-sale system, and it does not issue official receipts. Keep using your registered receipts wherever the law requires them.',
+      },
+      {
+        q: 'What happens to my records if I stop using CashIko?',
+        a: 'Records are not deleted the moment a plan lapses, and you can export sales and reports to CSV at any time. Ask us if you need a complete copy before closing an account.',
+      },
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Frequently asked questions"
+  description="Answers about CashIko's free trial, pricing, utang ledger, branches, Filipino language support, data privacy and BIR status."
+>
+  <PageHero
+    eyebrow="Questions"
+    title="Straight answers, including the inconvenient ones."
+    lead="If something is not covered here, email us — a real answer beats a help-centre article."
+  />
+
+  <div class="shell grid gap-12 py-14 md:grid-cols-[1fr_16rem] md:gap-16 md:py-20" data-reveal>
+    <div class="space-y-12">
+      {groups.map((group) => (
+        <section>
+          <h2 class="border-b border-warm/60 pb-3 text-lg text-forest-dark">{group.title}</h2>
+          <div class="mt-5">
+            <FaqList items={group.items} />
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <aside class="md:sticky md:top-28 md:self-start">
+      <div class="rounded-xl border border-warm bg-white/60 p-5">
+        <h2 class="text-base text-forest-dark">Still stuck?</h2>
+        <p class="mt-2 text-sm leading-relaxed text-forest-muted">
+          Tell us what you were trying to record and what happened instead. Screenshots help.
+        </p>
+        <a href="/contact/" class="mt-4 inline-block rounded-lg bg-forest px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-forest-dark">
+          Contact the team
+        </a>
+        <p class="mt-3 text-[11px] text-forest-muted/80">
+          Or email <a href={`mailto:${SITE.email}`} class="underline underline-offset-2">{SITE.email}</a>
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <CtaBand
+    title="The fastest answer is usually the app itself."
+    body="Fourteen days free. Add ten products and record a day of sales — the questions tend to answer themselves."
+  />
+</BaseLayout>

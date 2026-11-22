@@ -1,0 +1,25 @@
+---
+/** Closing call to action. Dark band, dot-grid texture, no gradient wash. */
+import Button from './Button.astro';
+import { SITE } from '../lib/site.js';
+
+const {
+  title = 'Know what you really earn — starting today.',
+  body = 'Fourteen days free. No credit card. Record your first sale in under a minute.',
+} = Astro.props;
+---
+<section class="shell mt-20 md:mt-28">
+  <div class="relative overflow-hidden rounded-2xl bg-forest-deep px-6 py-12 text-cream md:px-14 md:py-16" data-spotlight>
+    <div class="dot-grid pointer-events-none absolute inset-0 text-cream/[0.07]" aria-hidden="true"></div>
+    <div class="relative grid gap-8 md:grid-cols-[1.5fr_1fr] md:items-end">
+      <div>
+        <h2 class="max-w-xl text-[1.75rem] leading-[1.15] text-white sm:text-[2.15rem]">{title}</h2>
+        <p class="mt-4 max-w-md text-[0.9375rem] leading-relaxed text-cream/70">{body}</p>
+      </div>
+      <div class="flex flex-col gap-3 sm:flex-row md:justify-end">
+        <Button href={SITE.appUrl} variant="primary" size="lg">Start free trial</Button>
+        <Button href="/pricing/" variant="onDark" size="lg">See pricing</Button>
+      </div>
+    </div>
+  </div>
+</section>

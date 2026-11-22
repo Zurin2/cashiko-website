@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Button from '../components/Button.astro';
+import { SITE } from '../lib/site.js';
+
+const sections = [
+  {
+    id: 'stock',
+    n: '01',
+    eyebrow: 'Stock',
+    title: 'Inventory that counts itself down',
+    lead: 'Add what you sell once. Every sale subtracts from it — no separate stock notebook, no end-of-day recount.',
+    points: [
+      'Cost, selling price and margin recorded per item, so profit is never a guess.',
+      'Low-stock and out-of-stock warnings on the home screen before a customer asks for it.',
+      'Dead-stock list: anything with no sale in thirty days is flagged so you stop reordering it.',
+      'Restocking in one action — the purchase is logged as an expense, not a mystery.',
+      'Optional product photo, stored privately and served through a signed link.',
+    ],
+  },
+  {
+    id: 'pos',
+    n: '02',
+    eyebrow: 'Sales',
+    title: 'A register that works at tindahan speed',
+    lead: 'The point of sale is built for a queue, not a demo. Tap the items, pick how they paid, done.',
+    points: [
+      'Search or filter by category; quantities adjust with plus and minus.',
+      'Cash, GCash, Maya and any e-wallet you have configured yourself.',
+      'Scan-to-pay QR codes for GCash and Maya, generated per transaction.',
+      'Utang is a separate switch — a debt record, never disguised as a payment method.',
+      'Void a sale and the stock returns, along with the linked utang entry.',
+    ],
+    mock: true,
+  },
+  {
+    id: 'utang',
+    n: '03',
+    eyebrow: 'Utang',
+    title: 'The list on the wall, finally in one place',
+    lead: 'Utang is the part of a Philippine store that spreadsheets never fit. Here it has its own ledger.',
+    points: [
+      'One running balance per customer, with every utang and every partial payment.',
+      'Payments are capped at the outstanding balance — no negative debts, no phantom credit.',
+      'Due dates with an overdue list, sorted by who owes the most.',
+      'Reminder messages you can send or copy, already filled with the amount and the date.',
+    ],
+  },
+  {
+    id: 'expenses',
+    n: '04',
+    eyebrow: 'Expenses',
+    title: 'The costs that never make it into the notebook',
+    lead: 'Rent, electricity, transport, packaging. If it leaves the till, it belongs in the profit number.',
+    points: [
+      'Log an expense with a date, a type and an optional note.',
+      'Filter by period and category to see where the money actually goes.',
+      'Every expense is subtracted before CashIko calls anything profit.',
+    ],
+  },
+  {
+    id: 'reports',
+    n: '05',
+    eyebrow: 'Reports',
+    title: 'Today, this week, this month — and what it means',
+    lead: 'One screen that answers the only question that matters: did the store actually make money?',
+    points: [
+      'Profit breakdown: sales, cost of goods, expenses, real profit and margin.',
+      'Seven-day trend, best sellers, payment split and expenses by category.',
+      'Utang outstanding and utang taken within the period.',
+      'Slow movers, so dead stock is visible before it eats your capital.',
+      'Export to CSV or print a clean copy for your records.',
+    ],
+  },
+  {
+    id: 'branches',
+    n: '06',
+    eyebrow: 'Branches',
+    title: 'More than one stall, one clear picture',
+    lead: 'Premium tracks each branch separately — and rolls them up when you want the whole business.',
+    points: [
+      'Sales, transactions and profit per branch, side by side.',
+      'Switch the branch filter anywhere in the app.',
+      'Deactivating a branch never touches its history.',
+      'A top-branch view for the day, so you know where to stand tomorrow.',
+    ],
+    premium: true,
+  },
+  {
+    id: 'assistant',
+    n: '07',
+    eyebrow: 'Assistant',
+    title: 'Tanong kay CashIko',
+    lead: 'Ask about your own business in plain language and get an answer from your own numbers — not the internet.',
+    points: [
+      '“What sold best this week?” — answered from your recorded sales.',
+      '“Who owes me the most?” — answered from your utang ledger.',
+      'Available on Premium, in English or Filipino.',
+    ],
+    premium: true,
+  },
+  {
+    id: 'language',
+    n: '08',
+    eyebrow: 'Language',
+    title: 'English or Filipino, switchable any time',
+    lead: 'The interface follows your choice from Settings. Your data never gets translated behind your back.',
+    points: [
+      'Menus, buttons, validation messages and reminders change language.',
+      'Product names, customer names and notes stay exactly as typed.',
+      'New accounts start in English; Filipino is one tap away.',
+    ],
+  },
+  {
+    id: 'data',
+    n: '09',
+    eyebrow: 'Your data',
+    title: 'Business records stay with the business',
+    lead: 'Each account only ever sees its own store. There is no shared pool of sales data.',
+    points: [
+      'Every record is scoped to your business account.',
+      'Product photos are private, served through expiring signed links.',
+      'Full reset is available in Settings if you ever want to start over — it is permanent.',
+      'Details are spelled out in the privacy policy.',
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Features"
+  description="Stock, three-tap sales, utang ledger, expenses, real-profit reports, branches and an AI assistant — every part of CashIko explained."
+>
+  <PageHero
+    eyebrow="Features"
+    title="Every part of the store, in one place."
+    lead="CashIko is deliberately small. It does the handful of things a Philippine microbusiness actually needs, and it does them without a manual."
+  >
+    <div class="mt-2 flex flex-col gap-3 sm:flex-row">
+      <Button href={SITE.appUrl} variant="primary" size="lg">Start 14-day free trial</Button>
+      <Button href="/pricing/" variant="outline" size="lg">See pricing</Button>
+    </div>
+  </PageHero>
+
+  <div class="shell grid gap-12 py-14 md:grid-cols-[13rem_1fr] md:gap-16 md:py-20">
+    <!-- Section index: plain links, sticky on desktop -->
+    <nav class="md:sticky md:top-28 md:self-start" aria-label="Feature sections">
+      <p class="eyebrow">On this page</p>
+      <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-1">
+        {sections.map((section) => (
+          <li>
+            <a
+              href={`#${section.id}`}
+              class="group flex items-baseline gap-2 text-[0.8125rem] text-forest-muted transition-colors hover:text-forest-dark"
+            >
+              <span class="tabular text-[10px] text-warm group-hover:text-mango-dark">{section.n}</span>
+              {section.eyebrow}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="space-y-16 md:space-y-20">
+      {sections.map((section) => (
+        <section id={section.id} class="scroll-mt-24 border-t border-warm/60 pt-8" data-reveal>
+          <div class="flex items-center gap-3">
+            <p class="eyebrow">{section.n} — {section.eyebrow}</p>
+            {section.premium && (
+              <span class="rounded bg-mango-soft px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-mango-dark">Premium</span>
+            )}
+          </div>
+          <h2 class="mt-3 max-w-xl text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">{section.title}</h2>
+          <p class="mt-4 max-w-2xl text-[0.9375rem] leading-relaxed text-forest-muted">{section.lead}</p>
+
+          <ul class="mt-6 grid max-w-2xl gap-2.5">
+            {section.points.map((point) => (
+              <li class="flex gap-3 text-sm leading-relaxed text-forest-muted">
+                <span class="mt-2 h-px w-3 shrink-0 bg-forest/40" aria-hidden="true"></span>
+                {point}
+              </li>
+            ))}
+          </ul>
+
+          {section.mock && (
+            <div class="mt-7 max-w-md rounded-xl border border-warm bg-white p-4 shadow-card">
+              <div class="flex items-center justify-between border-b border-warm/60 pb-2.5">
+                <p class="text-[11px] font-semibold uppercase tracking-wide text-forest-muted">New transaction</p>
+                <p class="text-[10px] text-forest-muted">3 items</p>
+              </div>
+              <ul class="divide-y divide-warm/50">
+                {[
+                  { name: 'Coke 1.5L', qty: '×2', amount: '150.00' },
+                  { name: 'Pandesal bundle', qty: '×1', amount: '45.00' },
+                  { name: 'Instant noodles', qty: '×3', amount: '36.00' },
+                ].map((row) => (
+                  <li class="flex items-center justify-between py-2 text-[13px]">
+                    <span class="text-forest-dark">{row.name} <span class="text-[11px] text-forest-muted">{row.qty}</span></span>
+                    <span class="tabular font-medium text-forest-dark">₱{row.amount}</span>
+                  </li>
+                ))}
+              </ul>
+              <div class="mt-3 flex items-center justify-between border-t border-warm/60 pt-3">
+                <div class="flex gap-1.5">
+                  <span class="rounded bg-forest px-2 py-1 text-[10px] font-semibold text-white">GCash</span>
+                  <span class="rounded bg-cream px-2 py-1 text-[10px] font-semibold text-forest-muted">Cash</span>
+                  <span class="rounded bg-cream px-2 py-1 text-[10px] font-semibold text-forest-muted">Utang</span>
+                </div>
+                <span class="tabular text-sm font-bold text-forest-dark">₱231.00</span>
+              </div>
+            </div>
+          )}
+        </section>
+      ))}
+    </div>
+  </div>
+
+  <CtaBand
+    title="Start with ten products. See the difference by Friday."
+    body="Fourteen days free, no credit card, and your data stays yours if you decide not to continue."
+  />
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+<BaseLayout title="Page not found" noindex={true}>
+  <section class="shell flex min-h-[60vh] flex-col justify-center py-20">
+    <p class="eyebrow">404</p>
+    <h1 class="mt-4 max-w-xl text-[2.4rem] leading-[1.05] text-forest-dark md:text-[3.2rem]">
+      This page is not in the notebook.
+    </h1>
+    <p class="mt-4 max-w-md text-[1.0625rem] leading-relaxed text-forest-muted">
+      The link may be old, or the address may have a typo. Nothing has been lost — your records live in the app,
+      not here.
+    </p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <Button href="/" variant="primary" size="lg">Back to home</Button>
+      <Button href="/features/" variant="outline" size="lg">See what CashIko does</Button>
+    </div>
+  </section>
+</BaseLayout>

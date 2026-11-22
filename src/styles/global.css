@@ -1,0 +1,356 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   CashIko brand tokens — inherited from the product's design system
+   (cream base, forest ink, mango accent). 60/30/10: cream + ink carry
+   the page, mango is reserved for primary actions and live accents.
+------------------------------------------------------------------ */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  --color-surface: hsl(44 43% 96.5%);
+  --color-cream: hsl(44 30% 92%);
+  --color-warm: hsl(44 22% 78%);
+  --color-warm-soft: hsl(44 26% 88%);
+
+  --color-ink: hsl(150 18% 12%);
+  --color-forest: hsl(145 48% 26%);
+  --color-forest-dark: hsl(150 18% 14%);
+  --color-forest-deep: hsl(150 18% 9%);
+  --color-forest-muted: hsl(150 12% 34%);
+  --color-forest-soft: hsl(145 30% 92%);
+
+  --color-mango: hsl(26 88% 56%);
+  --color-mango-dark: hsl(22 86% 44%);
+  --color-mango-soft: hsl(28 90% 94%);
+
+  --shadow-lift: 0 1px 2px hsl(150 18% 12% / 0.05), 0 14px 40px -18px hsl(150 18% 12% / 0.28);
+  --shadow-card: 0 1px 0 hsl(44 22% 78% / 0.9), 0 10px 30px -22px hsl(150 18% 12% / 0.35);
+
+  --radius-card: 0.875rem;
+
+  /* Motion vocabulary. Expo-out for entrances (fast start, long settle),
+     spring for the single element allowed to overshoot. */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.42, 0.64, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--color-mango);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  /* Numerals should line up in tables and ledgers. */
+  .tabular { font-variant-numeric: tabular-nums; }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell { padding-inline: 2rem; }
+  }
+
+  /* Small caps label — used as a section index, never as a decorative pill. */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-forest-muted);
+  }
+
+  .link-quiet {
+    color: var(--color-forest);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 150ms ease-out;
+  }
+  .link-quiet:hover { color: var(--color-mango-dark); }
+
+  /* Hairline rules instead of card-in-card borders. */
+  .hairline { border-color: color-mix(in oklab, var(--color-warm) 80%, transparent); }
+
+  .dot-grid {
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  .prose-legal h2 {
+    font-size: 1.125rem;
+    line-height: 1.4;
+    margin-top: 2.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-forest-dark);
+  }
+  .prose-legal h3 {
+    font-size: 0.9375rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.35rem;
+    color: var(--color-forest-dark);
+  }
+  .prose-legal p,
+  .prose-legal li {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--color-forest-muted);
+  }
+  .prose-legal p + p { margin-top: 0.85rem; }
+  .prose-legal ul + p,
+  .prose-legal p + ul { margin-top: 0.85rem; }
+  .prose-legal ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin-top: 0.6rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .prose-legal a { color: var(--color-forest); text-decoration: underline; text-underline-offset: 3px; }
+}
+
+/* ------------------------------------------------------------------
+   Motion system
+   One vocabulary: expo-out entrances (~800ms), 70–90ms stagger between
+   siblings, spring reserved for the preview toast. Every rule here is
+   gated on prefers-reduced-motion, and `html.js` gating means a reader
+   without JavaScript sees the finished page immediately.
+------------------------------------------------------------------ */
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(30px) scale(0.972); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes bar-grow {
+  from { transform: scaleY(0.02); }
+  to   { transform: scaleY(1); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Scroll reveal — armed by the inline `js` class, fired by one observer. */
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 720ms var(--ease-expo),
+      transform 720ms var(--ease-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  html.js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stagger: the container reveals, its children follow in sequence. */
+  html.js [data-stagger] > * {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 680ms var(--ease-expo),
+      transform 680ms var(--ease-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  html.js [data-stagger].is-in > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hero choreography — CSS only, no observer, runs once per load.
+     Delays are short on purpose: the headline is the first thing a
+     visitor should read, not the last thing to arrive. */
+  html.js [data-hero] > * {
+    animation: hero-rise 760ms var(--ease-expo) both;
+    animation-delay: calc(40ms + var(--i, 0) * 70ms);
+  }
+
+  html.js [data-hero-card] {
+    animation: card-rise 900ms var(--ease-expo) both;
+    animation-delay: 150ms;
+  }
+
+  /* The chart inside the preview grows after the card has landed. */
+  html.js [data-bar] {
+    transform-origin: bottom;
+    animation: bar-grow 760ms var(--ease-expo) both;
+    animation-delay: calc(520ms + var(--i, 0) * 45ms);
+  }
+
+  html.js [data-hero-toast] {
+    animation: toast-in 600ms var(--ease-spring) both;
+    animation-delay: 880ms;
+  }
+}
+
+/* Hover lift — only on cards that are actually clickable or exploratory. */
+.lift {
+  transition:
+    transform 320ms var(--ease-expo),
+    box-shadow 320ms var(--ease-expo),
+    border-color 220ms ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .lift:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Pointer-tracked highlight on dark surfaces. Position comes from JS. */
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight] {
+    position: relative;
+    isolation: isolate;
+  }
+  [data-spotlight]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      20rem circle at var(--mx, 50%) var(--my, 0%),
+      hsl(44 43% 96.5% / 0.10),
+      transparent 62%
+    );
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+  }
+  [data-spotlight]:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Nav underline that grows from the left instead of appearing. */
+.nav-link {
+  position: relative;
+}.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.4rem;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 340ms var(--ease-expo);
+}
+.nav-link:hover::after,
+.nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* <details> opens with height instead of a jump. Unsupported browsers
+   keep the native instant behaviour, which is still correct. */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    details::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition:
+        block-size 340ms var(--ease-expo),
+        content-visibility 340ms allow-discrete;
+    }
+    details[open]::details-content {
+      block-size: auto;
+    }
+  }
+}
+
+/* Cross-document view transitions: the header holds still while the page
+   body crossfades. Visual only — navigation works identically without it. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation-duration: 190ms;
+}
+
+::view-transition-new(root) {
+  animation-duration: 260ms;
+}
+
+.site-header {
+  view-transition-name: site-header;
+  transition:
+    background-color 300ms ease-out,
+    box-shadow 300ms ease-out;
+}
+
+/* Set by the motion script once the page has scrolled past the first few
+   pixels, so the header separates from the content underneath it. */
+.site-header.is-scrolled {
+  box-shadow: 0 16px 32px -28px hsl(150 18% 12% / 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+

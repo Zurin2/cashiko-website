@@ -1,0 +1,432 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import ProductPreview from '../components/ProductPreview.astro';
+import FaqList from '../components/FaqList.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../lib/site.js';
+
+const facts = [
+  { value: '3 taps', label: 'to record a sale' },
+  { value: '₱99', label: 'per month, after the trial' },
+  { value: '14 days', label: 'free, no credit card' },
+  { value: 'EN / FIL', label: 'switch language anytime' },
+];
+
+const problems = [
+  {
+    n: '01',
+    title: 'Sales get written down. Costs get remembered.',
+    body: 'The notebook records what came in. It never records what the stock cost you — so the number at the bottom of the page is not profit.',
+  },
+  {
+    n: '02',
+    title: 'Utang lives in three places at once.',
+    body: 'A list on the wall, a page in the notebook, and your memory. When a customer says “bayad na ako,” nobody can prove otherwise.',
+  },
+  {
+    n: '03',
+    title: 'You only find out at the end of the month.',
+    body: 'By the time the totals are added up, the slow sellers are already dead stock and the low-margin items are already your best sellers.',
+  },
+];
+
+const steps = [
+  {
+    n: '01',
+    title: 'Add what you sell',
+    body: 'Name, cost, selling price, stock. A photo is optional. Start with ten items — that is enough to see the picture.',
+  },
+  {
+    n: '02',
+    title: 'Record each sale in three taps',
+    body: 'Pick the items, choose cash, GCash, Maya or utang, done. Stock and the ledger update themselves.',
+  },
+  {
+    n: '03',
+    title: 'Read the truth',
+    body: 'Sales, cost of goods, expenses, real profit — plus exactly who still owes you and how much.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do I need a computer?',
+    a: 'No. CashIko runs in the browser on any phone, tablet or laptop. If it can open Facebook, it can open CashIko.',
+  },
+  {
+    q: 'What happens after the 14-day trial?',
+    a: 'You choose Basic at ₱99/month or Premium at ₱199/month. No credit card is needed to start, and your data stays intact if you decide later.',
+  },
+  {
+    q: 'Can I use Filipino instead of English?',
+    a: 'Yes. Settings has an English / Filipino switch. Menu labels, buttons and messages change with it — your product names stay exactly as you typed them.',
+  },
+  {
+    q: 'Is my sales data private?',
+    a: 'Your records are tied to your business account and are never sold or shared with other stores. Read the details in our privacy policy.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: new URL('/images/cashiko-logo.svg', SITE.url).href,
+    email: SITE.email,
+    foundingDate: SITE.founded,
+    founders: [
+      { '@type': 'Person', name: 'Xyrille Nuñez' },
+      { '@type': 'Person', name: 'Jose Miguel Esperat' },
+      { '@type': 'Person', name: 'Emmanuel Javier' },
+    ],
+    address: { '@type': 'PostalAddress', addressCountry: 'PH' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: SITE.name,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    description: SITE.description,
+    offers: [
+      { '@type': 'Offer', name: 'Basic', price: '99', priceCurrency: 'PHP' },
+      { '@type': 'Offer', name: 'Premium', price: '199', priceCurrency: 'PHP' },
+    ],
+  },
+];
+---
+<BaseLayout title="Know what you really earn" jsonLd={jsonLd}>
+  <!-- ── Hero ───────────────────────────────────────────────── -->
+  <section class="relative overflow-hidden bg-cream/50">
+    <div class="shell relative grid items-center gap-14 pb-16 pt-14 md:grid-cols-[1.05fr_1fr] md:gap-12 md:pb-24 md:pt-20">
+      <div data-hero>
+        <p class="eyebrow flex items-center gap-2" style="--i:0">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-mango"></span>
+          For sari-sari stores, karinderyas and small shops
+        </p>
+
+        <h1 class="mt-5 text-[2.6rem] leading-[1.02] tracking-[-0.03em] text-forest-dark sm:text-[3.4rem] md:text-[3.9rem]" style="--i:1">
+          Know what you<br class="hidden sm:block" />{' '}
+          <em class="font-normal italic text-forest">really</em> earn.
+        </h1>
+
+        <p class="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-forest-muted" style="--i:2">
+          CashIko turns the notebook under the counter into a clear daily picture: stock, sales, utang,
+          expenses — and the profit that is actually left.
+        </p>
+
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row" style="--i:3">
+          <Button href={SITE.appUrl} variant="primary" size="lg">Start 14-day free trial</Button>
+          <Button href="#how-it-works" variant="outline" size="lg">
+            See how it works
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" class="transition-transform duration-300 group-hover/btn:translate-x-0.5">
+              <path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </Button>
+        </div>
+
+        <p class="mt-5 text-[0.8125rem] text-forest-muted/85" style="--i:4">
+          No credit card. Cancel or switch plans in Settings.
+        </p>
+      </div>
+
+      <div class="md:pl-4" data-hero-card>
+        <ProductPreview />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Facts strip ────────────────────────────────────────── -->
+  <section class="border-y border-warm/70 bg-white/50">
+    <dl class="shell grid grid-cols-2 divide-warm/60 py-1 md:grid-cols-4 md:divide-x">
+      {facts.map((fact, index) => (
+        <div class:list={['px-1 py-5 md:px-6', index > 1 ? 'border-t border-warm/60 md:border-t-0' : '']}>
+          <dt class="tabular font-display text-xl text-forest-dark md:text-2xl">{fact.value}</dt>
+          <dd class="mt-1 text-[0.75rem] leading-snug text-forest-muted">{fact.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- ── Problem ────────────────────────────────────────────── -->
+  <section class="shell mt-20 md:mt-28" data-reveal>
+    <div class="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
+      <div>
+        <p class="eyebrow">The daily reality</p>
+        <h2 class="mt-4 text-[1.85rem] leading-[1.12] text-forest-dark md:text-[2.35rem]">
+          The notebook isn’t wrong.<br />It’s just unfinished.
+        </h2>
+        <p class="mt-5 max-w-sm text-[0.9375rem] leading-relaxed text-forest-muted">
+          You already have the right habit — writing it down. CashIko keeps that habit and does the arithmetic
+          you do not have time for at 9 p.m.
+        </p>
+      </div>
+
+      <ol class="divide-y divide-warm/60 border-t border-warm/60">
+        {problems.map((problem) => (
+          <li class="grid gap-2 py-6 sm:grid-cols-[3rem_1fr] sm:gap-5">
+            <span class="tabular text-[0.75rem] font-semibold text-mango-dark">{problem.n}</span>
+            <div>
+              <h3 class="text-[1.0625rem] leading-snug text-forest-dark">{problem.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-forest-muted">{problem.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── How it works ───────────────────────────────────────── -->
+  <section id="how-it-works" class="shell mt-20 scroll-mt-24 md:mt-28" data-reveal>
+    <div class="flex flex-wrap items-end justify-between gap-4 border-b border-warm/60 pb-5">
+      <h2 class="text-[1.85rem] leading-tight text-forest-dark md:text-[2.35rem]">Three taps, then the truth.</h2>
+      <p class="text-[0.8125rem] text-forest-muted">From opening the app to a recorded sale: under ten seconds.</p>
+    </div>
+
+    <ol class="grid gap-8 pt-8 md:grid-cols-3 md:gap-10">
+      {steps.map((step) => (
+        <li>
+          <span class="tabular font-display text-[2.5rem] leading-none text-warm">{step.n}</span>
+          <h3 class="mt-3 text-lg text-forest-dark">{step.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-forest-muted">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ── Feature rows ───────────────────────────────────────── -->
+  <section class="shell mt-20 md:mt-28">
+    <!-- Stock -->
+    <div class="grid items-center gap-10 border-t border-warm/60 py-12 md:grid-cols-2 md:gap-16 md:py-16" data-reveal>
+      <div class="order-2 md:order-1">
+        <p class="eyebrow">01 — Stock</p>
+        <h2 class="mt-3 text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">A warning before you run out, not after.</h2>
+        <p class="mt-4 text-[0.9375rem] leading-relaxed text-forest-muted">
+          Every sale subtracts from stock automatically. Items that fall below their level appear on the home
+          screen, and anything that has not moved in thirty days is flagged as dead stock.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-forest-muted">
+          <li class="flex gap-2.5"><span class="text-forest">—</span> Cost, selling price and margin per item</li>
+          <li class="flex gap-2.5"><span class="text-forest">—</span> Restock in one action, logged as an expense</li>
+          <li class="flex gap-2.5"><span class="text-forest">—</span> Dead-stock list for the items tying up your cash</li>
+        </ul>
+      </div>
+
+      <div class="order-1 md:order-2">
+        <div class="rounded-xl border border-warm bg-white p-4 shadow-card">
+          <div class="flex items-center justify-between">
+            <p class="text-[11px] font-semibold uppercase tracking-wide text-forest-muted">Stock</p>
+            <span class="rounded bg-red-50 px-1.5 py-0.5 text-[10px] font-bold text-red-700">3 low</span>
+          </div>
+          <ul class="mt-3 divide-y divide-warm/50">
+            {[
+              { name: 'Brown sugar 500g', qty: '0', state: 'out' },
+              { name: 'Cooking oil 1L', qty: '2', state: 'low' },
+              { name: 'Pandesal bundle', qty: '5', state: 'low' },
+              { name: 'Instant noodles', qty: '48', state: 'ok' },
+            ].map((item) => (
+              <li class="flex items-center justify-between py-2.5">
+                <span class="text-[13px] font-medium text-forest-dark">{item.name}</span>
+                <span
+                  class:list={[
+                    'tabular rounded px-1.5 py-0.5 text-[10px] font-bold',
+                    item.state === 'out' ? 'bg-red-100 text-red-700' : item.state === 'low' ? 'bg-mango-soft text-mango-dark' : 'bg-forest-soft text-forest',
+                  ]}
+                >
+                  {item.qty === '0' ? 'OUT' : `${item.qty} left`}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Utang -->
+    <div class="grid items-center gap-10 border-t border-warm/60 py-12 md:grid-cols-2 md:gap-16 md:py-16" data-reveal>
+      <div>
+        <p class="eyebrow">02 — Utang</p>
+        <h2 class="mt-3 text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">A ledger that remembers so you don’t have to.</h2>
+        <p class="mt-4 text-[0.9375rem] leading-relaxed text-forest-muted">
+          Utang is not a payment method — it is a debt record. Each one is tied to a customer, with a running
+          balance, a due date and the full history of every partial payment.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-forest-muted">
+          <li class="flex gap-2.5"><span class="text-forest">—</span> Balances are capped at what is actually owed</li>
+          <li class="flex gap-2.5"><span class="text-forest">—</span> Payment reminders you can send or copy</li>
+          <li class="flex gap-2.5"><span class="text-forest">—</span> A list of who is overdue, sorted for you</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="rounded-xl border border-warm bg-white p-4 shadow-card">
+          <div class="flex items-baseline justify-between">
+            <p class="text-[11px] font-semibold uppercase tracking-wide text-forest-muted">Utang ledger</p>
+            <p class="tabular text-[11px] font-semibold text-mango-dark">₱3,156 outstanding</p>
+          </div>
+          <ul class="mt-3 divide-y divide-warm/50">
+            {[
+              { name: 'Aling Nena', meta: 'due tomorrow', amount: '350.00', tone: 'soon' },
+              { name: 'Mang Ben', meta: '2 days late', amount: '620.00', tone: 'late' },
+              { name: 'Jonalyn', meta: 'no due date', amount: '180.00', tone: 'ok' },
+            ].map((row) => (
+              <li class="flex items-center justify-between gap-3 py-2.5">
+                <div class="min-w-0">
+                  <p class="truncate text-[13px] font-medium text-forest-dark">{row.name}</p>
+                  <p
+                    class:list={[
+                      'text-[10px]',
+                      row.tone === 'late' ? 'text-red-600' : row.tone === 'soon' ? 'text-mango-dark' : 'text-forest-muted',
+                    ]}
+                  >
+                    {row.meta}
+                  </p>
+                </div>
+                <span class="tabular text-[13px] font-semibold text-forest-dark">₱{row.amount}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profit -->
+    <div class="grid items-center gap-10 border-y border-warm/60 py-12 md:grid-cols-2 md:gap-16 md:py-16" data-reveal>
+      <div class="order-2 md:order-1">
+        <p class="eyebrow">03 — Profit</p>
+        <h2 class="mt-3 text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">Gross sales are not profit. This is.</h2>
+        <p class="mt-4 text-[0.9375rem] leading-relaxed text-forest-muted">
+          CashIko subtracts what the goods cost you and what you spent on the store — rent, electricity,
+          transport — before it calls anything profit.
+        </p>
+        <p class="mt-4 rounded-lg border border-forest/15 bg-forest-soft/50 px-3 py-2 text-[0.8125rem] font-medium text-forest">
+          Profit = Sales − Cost of goods − Expenses
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-forest-muted">
+          <li class="flex gap-2.5"><span class="text-forest">—</span> Daily, weekly and monthly ranges</li>
+          <li class="flex gap-2.5"><span class="text-forest">—</span> Best sellers and slow movers</li>
+          <li class="flex gap-2.5"><span class="text-forest">—</span> CSV export and a print view for your records</li>
+        </ul>
+      </div>
+
+      <div class="order-1 md:order-2">
+        <div class="rounded-xl border border-warm bg-white p-5 shadow-card">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-forest-muted">Today · profit breakdown</p>
+          <dl class="mt-4 space-y-2.5 text-[13px]">
+            <div class="flex justify-between"><dt class="text-forest-muted">Sales</dt><dd class="tabular font-medium text-forest-dark">₱2,415.00</dd></div>
+            <div class="flex justify-between"><dt class="text-forest-muted">Cost of goods</dt><dd class="tabular font-medium text-red-600">− ₱1,180.00</dd></div>
+            <div class="flex justify-between"><dt class="text-forest-muted">Expenses</dt><dd class="tabular font-medium text-red-600">− ₱340.00</dd></div>
+            <div class="flex items-baseline justify-between border-t border-warm/70 pt-2.5">
+              <dt class="font-semibold text-forest-dark">Real profit</dt>
+              <dd class="tabular font-display text-xl text-forest">₱895.00</dd>
+            </div>
+          </dl>
+          <p class="mt-3 text-[10px] text-forest-muted/80">37% margin on today’s sales</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bilingual ──────────────────────────────────────────── -->
+  <section class="shell mt-20 md:mt-28" data-reveal>
+    <div class="grid gap-8 rounded-2xl border border-warm bg-white/60 p-6 md:grid-cols-[1.2fr_0.8fr] md:items-center md:p-10">
+      <div>
+        <p class="eyebrow">Language</p>
+        <h2 class="mt-3 text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">English or Filipino. Your call, any time.</h2>
+        <p class="mt-3 max-w-lg text-[0.9375rem] leading-relaxed text-forest-muted">
+          Switch the whole interface from Settings. Buttons, labels and messages follow — while your product
+          names, customer names and notes stay exactly as you typed them.
+        </p>
+      </div>
+      <div class="justify-self-start md:justify-self-end">
+        <div class="inline-flex rounded-lg border border-warm bg-white p-1 shadow-card" role="group" aria-label="Language preview">
+          <span class="rounded-md bg-forest px-4 py-2 text-[13px] font-semibold text-white">English</span>
+          <span class="px-4 py-2 text-[13px] font-semibold text-forest-muted">Filipino</span>
+        </div>
+        <p class="mt-3 text-center text-[11px] text-forest-muted/80">Settings → Language</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pricing teaser ─────────────────────────────────────── -->
+  <section class="shell mt-20 md:mt-28" data-reveal>
+    <div class="flex flex-wrap items-end justify-between gap-4 border-b border-warm/60 pb-5">
+      <div>
+        <p class="eyebrow">Pricing</p>
+        <h2 class="mt-3 text-[1.85rem] leading-tight text-forest-dark md:text-[2.35rem]">Less than a kilo of rice a day.</h2>
+      </div>
+      <a href="/pricing/" class="link-quiet text-sm font-medium">Full comparison →</a>
+    </div>
+
+    <div class="grid gap-5 pt-8 sm:grid-cols-2">
+      <div class="rounded-xl border border-warm bg-white p-6">
+        <div class="flex items-baseline justify-between">
+          <h3 class="text-lg text-forest-dark">Basic</h3>
+          <p class="tabular text-2xl text-forest-dark">₱99<span class="text-sm font-normal text-forest-muted"> / month</span></p>
+        </div>
+        <p class="mt-3 text-sm leading-relaxed text-forest-muted">
+          One store, complete books: stock, POS, utang, expenses and real profit.
+        </p>
+      </div>
+      <div class="rounded-xl border border-forest/25 bg-forest-soft/40 p-6">
+        <div class="flex items-baseline justify-between">
+          <h3 class="text-lg text-forest-dark">Premium</h3>
+          <p class="tabular text-2xl text-forest-dark">₱199<span class="text-sm font-normal text-forest-muted"> / month</span></p>
+        </div>
+        <p class="mt-3 text-sm leading-relaxed text-forest-muted">
+          Multiple branches in real time, plus Tanong kay CashIko — an assistant that reads your own numbers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Founders note ──────────────────────────────────────── -->
+  <section class="shell mt-20 md:mt-28" data-reveal>
+    <div class="grid gap-10 border-t border-warm/60 pt-12 md:grid-cols-[1fr_1.1fr] md:gap-16">
+      <div>
+        <p class="eyebrow">Why we built this</p>
+        <blockquote class="mt-4 font-display text-[1.4rem] leading-snug text-forest-dark md:text-[1.6rem]">
+          “Every store already knows how to keep records. They just deserve software that does the maths
+          without asking them to become accountants.”
+        </blockquote>
+        <p class="mt-4 text-sm text-forest-muted">— The CashIko team</p>
+        <a href="/about/" class="link-quiet mt-6 inline-block text-sm font-medium">Meet the co-founders →</a>
+      </div>
+
+      <ul class="divide-y divide-warm/60 border-t border-warm/60 md:border-t-0 md:pt-0">
+        {[
+          { name: 'Xyrille Nuñez', role: 'Co-founder' },
+          { name: 'Jose Miguel Esperat', role: 'Co-founder' },
+          { name: 'Emmanuel Javier', role: 'Co-founder' },
+        ].map((person) => (
+          <li class="flex items-center gap-4 py-4">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-cream font-display text-sm font-semibold text-forest">
+              {person.name.split(' ').map((part) => part[0]).slice(0, 2).join('')}
+            </span>
+            <div>
+              <p class="text-sm font-semibold text-forest-dark">{person.name}</p>
+              <p class="text-[11px] text-forest-muted">{person.role}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── FAQ teaser ─────────────────────────────────────────── -->
+  <section class="shell mt-20 md:mt-28" data-reveal>
+    <div class="grid gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-16">
+      <div>
+        <p class="eyebrow">Questions</p>
+        <h2 class="mt-3 text-[1.85rem] leading-tight text-forest-dark md:text-[2.35rem]">The things store owners ask first.</h2>
+        <a href="/faq/" class="link-quiet mt-5 inline-block text-sm font-medium">All questions →</a>
+      </div>
+      <FaqList items={faqs} />
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

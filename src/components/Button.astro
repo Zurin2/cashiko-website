@@ -1,0 +1,35 @@
+---
+/**
+ * Anchor styled as a button. Four variants, four states each
+ * (rest / hover / active / focus-visible).
+ */
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  class: extra = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'group/btn inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-[background-color,color,border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface';
+
+const variants = {
+  // Dark ink on mango keeps the primary action readable (≈5.4:1); white on
+  // mango only reaches ≈3:1 and fails for button-size text.
+  primary: 'bg-mango text-forest-dark hover:bg-mango-dark hover:text-cream',
+  forest: 'bg-forest text-white hover:bg-forest-dark',
+  outline: 'border border-forest/25 bg-transparent text-forest-dark hover:border-forest/60 hover:bg-cream',
+  light: 'bg-cream text-forest-dark hover:bg-warm-soft',
+  // For use on the dark forest bands only.
+  onDark: 'border border-cream/30 bg-transparent text-cream hover:border-cream/60 hover:bg-white/10',
+};
+
+const sizes = {
+  md: 'px-4 py-2.5 text-sm',
+  lg: 'px-5 py-3 text-[0.9375rem]',
+};
+---
+<a href={href} class:list={[base, variants[variant], sizes[size], extra]} {...rest}>
+  <slot />
+</a>

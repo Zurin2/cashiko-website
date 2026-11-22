@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="CashIko">
+  <rect width="100" height="100" rx="22" fill="#0B874B"/>
+  <g transform="translate(-190,-70)" fill="#FAF8F1">
+    <path d="M 223.5 84 L 245 84 C 258 84, 267 93, 267 107 C 267 121, 258 130, 245 130 L 231 130 L 231 144.5 C 231 148.6, 227.6 152, 223.5 152 C 219.4 152, 216 148.6, 216 144.5 L 216 91.5 C 216 87.4, 219.4 84, 223.5 84 Z M 231 97 L 231 117 L 244 117 C 250 117, 254 113, 254 107 C 254 101, 250 97, 244 97 Z"/>
+    <rect x="204" y="96.5" width="72" height="9" rx="4.5"/>
+    <rect x="204" y="111.5" width="72" height="9" rx="4.5"/>
+  </g>
+</svg>

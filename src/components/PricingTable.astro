@@ -1,0 +1,141 @@
+---
+/** Plan pair + full comparison. Premium is visually anchored, not duplicated. */
+import Button from './Button.astro';
+import { SITE } from '../lib/site.js';
+
+const basic = [
+  'One branch',
+  'Stock tracking and low-stock alerts',
+  'Three-tap sales recording — cash, GCash, Maya, e-wallets',
+  'Utang ledger with payment reminders',
+  'Expense logging',
+  'Real profit: sales − cost − expenses',
+  'CSV export and printable reports',
+  'English and Filipino',
+];
+
+const premium = [
+  'Everything in Basic',
+  'Multiple branches, tracked in real time',
+  'AI assistant — Tanong kay CashIko',
+  'Priority support',
+];
+
+const rows = [
+  ['Stock and low-stock alerts', true, true],
+  ['Three-tap POS recording', true, true],
+  ['Utang ledger and reminders', true, true],
+  ['Expense logging', true, true],
+  ['Real-profit reports', true, true],
+  ['CSV and printable reports', true, true],
+  ['English and Filipino', true, true],
+  ['Branches', 'One', 'Multiple'],
+  ['AI assistant', false, true],
+  ['Priority support', false, true],
+];
+---
+<div class="grid gap-5 md:grid-cols-2">
+  <!-- Basic -->
+  <section class="lift flex flex-col rounded-2xl border border-warm bg-white p-6 md:p-8">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xl text-forest-dark">Basic</h2>
+      <p class="text-[11px] font-semibold uppercase tracking-wide text-forest-muted">Single store</p>
+    </div>
+    <p class="mt-3 flex items-baseline gap-1.5">
+      <span class="tabular font-display text-4xl text-forest-dark" data-count="99" data-count-prefix="₱" data-count-duration="900">₱99</span>
+      <span class="text-sm text-forest-muted">/ month</span>
+    </p>
+    <p class="mt-2 text-sm leading-relaxed text-forest-muted">
+      Everything one sari-sari store needs to stop guessing: stock, sales, utang, expenses and profit.
+    </p>
+
+    <ul class="mt-6 flex-1 space-y-2.5">
+      {basic.map((item) => (
+        <li class="flex items-start gap-2.5 text-sm text-forest-muted">
+          <svg class="mt-0.5 h-4 w-4 shrink-0 text-forest" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8.4 6.3 11.6 13 4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          {item}
+        </li>
+      ))}
+    </ul>
+
+    <Button href={SITE.appUrl} variant="outline" size="lg" class="mt-7 w-full">Start 14-day trial</Button>
+  </section>
+
+  <!-- Premium -->
+  <section class="lift relative flex flex-col overflow-hidden rounded-2xl bg-forest-deep p-6 text-cream md:p-8" data-spotlight>
+    <div class="dot-grid pointer-events-none absolute inset-0 text-cream/[0.06]" aria-hidden="true"></div>
+    <div class="relative flex flex-col">
+      <div class="flex items-baseline justify-between">
+        <h2 class="text-xl text-white">Premium</h2>
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-mango">Multi-branch</p>
+      </div>
+      <p class="mt-3 flex items-baseline gap-1.5">
+        <span class="tabular font-display text-4xl text-white" data-count="199" data-count-prefix="₱" data-count-duration="900">₱199</span>
+        <span class="text-sm text-cream/60">/ month</span>
+      </p>
+      <p class="mt-2 text-sm leading-relaxed text-cream/70">
+        For owners running more than one stall or store — plus an assistant that answers in plain language.
+      </p>
+
+      <ul class="mt-6 flex-1 space-y-2.5">
+        {premium.map((item) => (
+          <li class="flex items-start gap-2.5 text-sm text-cream/85">
+            <svg class="mt-0.5 h-4 w-4 shrink-0 text-mango" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8.4 6.3 11.6 13 4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      <Button href={SITE.appUrl} variant="primary" size="lg" class="mt-7 w-full">Start 14-day trial</Button>
+    </div>
+  </section>
+</div>
+
+<!-- Comparison -->
+<section class="mt-14">
+  <h2 class="text-lg text-forest-dark">What changes between plans</h2>
+  <div class="mt-5 overflow-hidden rounded-xl border border-warm bg-white">
+    <table class="w-full border-collapse text-left text-sm">
+      <caption class="sr-only">Feature comparison between Basic and Premium</caption>
+      <thead>
+        <tr class="border-b border-warm/70 bg-cream/50">
+          <th scope="col" class="px-4 py-3 text-[11px] font-semibold uppercase tracking-wide text-forest-muted md:px-6">Feature</th>
+          <th scope="col" class="w-24 px-4 py-3 text-[11px] font-semibold uppercase tracking-wide text-forest-muted">Basic</th>
+          <th scope="col" class="w-24 px-4 py-3 text-[11px] font-semibold uppercase tracking-wide text-forest-muted">Premium</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-warm/50">
+        {rows.map(([label, basicValue, premiumValue]) => (
+          <tr>
+            <th scope="row" class="px-4 py-3 text-left font-medium text-forest-dark md:px-6">{label}</th>
+            <td class="px-4 py-3">
+              {typeof basicValue === 'boolean' ? (
+                basicValue
+                  ? <span class="font-semibold text-forest" aria-label="Included">✓</span>
+                  : <span class="text-warm" aria-label="Not included">—</span>
+              ) : (
+                <span class="text-forest-muted">{basicValue}</span>
+              )}
+            </td>
+            <td class="px-4 py-3">
+              {typeof premiumValue === 'boolean' ? (
+                premiumValue
+                  ? <span class="font-semibold text-forest" aria-label="Included">✓</span>
+                  : <span class="text-warm" aria-label="Not included">—</span>
+              ) : (
+                <span class="text-forest-muted">{premiumValue}</span>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="mt-3 text-xs text-forest-muted/80">
+    Prices are in Philippine pesos and include VAT where applicable. You can switch plans from Settings at any time.
+  </p>
+</section>

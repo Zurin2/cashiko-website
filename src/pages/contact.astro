@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE } from '../lib/site.js';
+
+const topics = [
+  'Starting a trial',
+  'Billing or plan change',
+  'A bug or something that looks wrong',
+  'Multiple branches',
+  'Partnership or press',
+  'Something else',
+];
+---
+<BaseLayout
+  title="Contact"
+  description="Talk to the CashIko team about starting a trial, billing, branches, or a problem with your store's records."
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Tell us what the store needs."
+    lead="Questions go to the team that builds CashIko — the same three people. Include the store name and what you were trying to record, and you will get a specific answer instead of a canned reply."
+  />
+
+  <div class="shell grid gap-12 py-14 md:grid-cols-[0.85fr_1.15fr] md:gap-16 md:py-20" data-reveal>
+    <!-- Direct details -->
+    <div class="space-y-8">
+      <div>
+        <p class="eyebrow">Email</p>
+        <a href={`mailto:${SITE.email}`} class="mt-2 block font-display text-xl text-forest-dark underline decoration-mango decoration-2 underline-offset-4 hover:text-forest">
+          {SITE.email}
+        </a>
+        <p class="mt-2 text-sm text-forest-muted">Usually answered within two business days.</p>
+      </div>
+
+      <div class="border-t border-warm/60 pt-6">
+        <p class="eyebrow">Helpful to include</p>
+        <ul class="mt-3 space-y-2 text-sm text-forest-muted">
+          <li class="flex gap-2.5"><span class="text-forest">—</span> Your store name and the email you signed up with</li>
+          <li class="flex gap-2.5"><span class="text-forest">—</span> What you tapped, and what happened instead</li>
+          <li class="flex gap-2.5"><span class="text-forest">—</span> A screenshot, if the screen looks wrong</li>
+        </ul>
+      </div>
+
+      <div class="border-t border-warm/60 pt-6">
+        <p class="eyebrow">Already using CashIko?</p>
+        <p class="mt-2 text-sm leading-relaxed text-forest-muted">
+          Most account questions — plan changes, language, resetting data — are handled in Settings. The
+          <a href="/faq/" class="link-quiet"> FAQ</a> covers the rest.
+        </p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="rounded-xl border border-warm bg-white p-6 shadow-card md:p-8">
+      <form
+        id="contact-form"
+        action={`mailto:${SITE.email}`}
+        method="post"
+        enctype="text/plain"
+        class="space-y-5"
+      >
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="name" class="block text-[0.8125rem] font-semibold text-forest-dark">Your name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              autocomplete="name"
+              class="mt-1.5 w-full rounded-lg border border-warm bg-surface px-3 py-2.5 text-sm text-forest-dark placeholder:text-forest-muted/50 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
+              placeholder="Nena Reyes"
+            />
+          </div>
+          <div>
+            <label for="business" class="block text-[0.8125rem] font-semibold text-forest-dark">Store name</label>
+            <input
+              id="business"
+              name="business"
+              type="text"
+              autocomplete="organization"
+              class="mt-1.5 w-full rounded-lg border border-warm bg-surface px-3 py-2.5 text-sm text-forest-dark placeholder:text-forest-muted/50 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
+              placeholder="Aling Nena's Sari-Sari"
+            />
+          </div>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="email" class="block text-[0.8125rem] font-semibold text-forest-dark">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              class="mt-1.5 w-full rounded-lg border border-warm bg-surface px-3 py-2.5 text-sm text-forest-dark placeholder:text-forest-muted/50 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
+              placeholder="you@email.ph"
+            />
+          </div>
+          <div>
+            <label for="topic" class="block text-[0.8125rem] font-semibold text-forest-dark">Topic</label>
+            <select
+              id="topic"
+              name="topic"
+              class="mt-1.5 w-full rounded-lg border border-warm bg-surface px-3 py-2.5 text-sm text-forest-dark focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
+            >
+              {topics.map((topic) => <option>{topic}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="message" class="block text-[0.8125rem] font-semibold text-forest-dark">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            required
+            class="mt-1.5 w-full resize-y rounded-lg border border-warm bg-surface px-3 py-2.5 text-sm leading-relaxed text-forest-dark placeholder:text-forest-muted/50 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
+            placeholder="What were you trying to do, and what happened?"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <p class="max-w-[16rem] text-[11px] leading-snug text-forest-muted/80">
+            This form opens your email app with the message ready to send.
+          </p>
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center rounded-lg bg-forest px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-forest-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/40 focus-visible:ring-offset-2"
+          >
+            Compose message
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Build a readable mailto body from the form. Without JS the form's own
+  // mailto action still opens a mail client.
+  const form = document.getElementById('contact-form');
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const subject = `[CashIko] ${data.get('topic')} — ${data.get('business') || data.get('name')}`;
+      const body = [
+        `Name: ${data.get('name')}`,
+        `Store: ${data.get('business') || '—'}`,
+        `Email: ${data.get('email')}`,
+        `Topic: ${data.get('topic')}`,
+        '',
+        `${data.get('message')}`,
+      ].join('\n');
+
+      window.location.href = `mailto:${form.action.replace('mailto:', '')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  }
+</script>

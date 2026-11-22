@@ -1,0 +1,45 @@
+---
+import { FOOTER_NAV, SITE } from '../lib/site.js';
+const year = new Date().getFullYear();
+---
+<footer class="mt-24 bg-forest-deep text-cream/80">
+  <div class="shell py-14 md:py-16">
+    <div class="grid gap-12 md:grid-cols-[1.2fr_2fr]">
+      <div>
+        <a href="/" class="flex items-center gap-2.5" aria-label={`${SITE.name} home`}>
+          <img src="/images/cashiko-icon.svg" alt="" width="444" height="246" class="h-9 w-auto" />
+          <span class="font-display text-2xl font-semibold tracking-tight text-white">CashIko</span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-cream/65">
+          {SITE.tagline}. Built for the store that opens at 5 a.m. and closes when the last customer leaves.
+        </p>
+        <a href={`mailto:${SITE.email}`} class="mt-5 inline-block text-sm font-medium text-cream underline decoration-cream/30 underline-offset-4 transition-colors hover:text-mango">
+          {SITE.email}
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3">
+        {FOOTER_NAV.map((column) => (
+          <div>
+            <h2 class="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-cream/45">{column.title}</h2>
+            <ul class="mt-4 space-y-2.5">
+              {column.links.map((link) => (
+                <li>
+                  <a href={link.href} class="text-sm text-cream/75 transition-colors hover:text-white">{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-3 border-t border-cream/10 pt-6 text-xs text-cream/45 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {SITE.legalName}. All rights reserved.</p>
+      <p class="flex items-center gap-2">
+        <span class="inline-block h-1.5 w-1.5 rounded-full bg-mango"></span>
+        Made in the Philippines, for Philippine stores.
+      </p>
+    </div>
+  </div>
+</footer>

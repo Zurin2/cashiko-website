@@ -1,0 +1,24 @@
+---
+/**
+ * Native <details> accordion: keyboard accessible, works without JS.
+ * `name` groups the items so only one stays open at a time (progressive).
+ */
+const { items, columns = 1 } = Astro.props;
+---
+<div class:list={['grid gap-3', columns === 2 ? 'md:grid-cols-2' : '']}>
+  {items.map((item) => (
+    <details class="group rounded-xl border border-warm/70 bg-white/70 px-5 py-4 transition-colors open:border-forest/25 open:bg-white hover:border-warm">
+      <summary class="flex cursor-pointer list-none items-start justify-between gap-4 [&::-webkit-details-marker]:hidden">
+        <span class="text-[0.9375rem] font-semibold leading-snug text-forest-dark">{item.q}</span>
+        <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-warm text-forest-muted transition-transform duration-200 group-open:rotate-45" aria-hidden="true">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+          </svg>
+        </span>
+      </summary>
+      <div class="mt-3 pr-8 text-sm leading-relaxed text-forest-muted">
+        {item.a}
+      </div>
+    </details>
+  ))}
+</div>

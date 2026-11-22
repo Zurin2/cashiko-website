@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE, LEGAL_UPDATED } from '../lib/site.js';
+
+const sections = [
+  { id: 'agreement', label: 'Agreement' },
+  { id: 'service', label: 'The service' },
+  { id: 'accounts', label: 'Your account' },
+  { id: 'trial', label: 'Free trial' },
+  { id: 'plans', label: 'Plans and payment' },
+  { id: 'use', label: 'Acceptable use' },
+  { id: 'data', label: 'Your records' },
+  { id: 'ip', label: 'Intellectual property' },
+  { id: 'availability', label: 'Availability' },
+  { id: 'termination', label: 'Suspension and termination' },
+  { id: 'disclaimers', label: 'Disclaimers' },
+  { id: 'liability', label: 'Limitation of liability' },
+  { id: 'law', label: 'Governing law' },
+  { id: 'changes', label: 'Changes to these terms' },
+];
+---
+<BaseLayout
+  title="Terms of service"
+  description="The agreement between CashIko and the business using it: trial, plans, acceptable use, your records, disclaimers and governing law."
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Terms of service"
+    lead={`The agreement between you and CashIko. Last updated ${LEGAL_UPDATED}.`}
+  />
+
+  <div class="shell grid gap-12 py-12 md:grid-cols-[14rem_1fr] md:gap-16 md:py-16">
+    <nav class="md:sticky md:top-28 md:self-start" aria-label="Terms sections">
+      <p class="eyebrow">Contents</p>
+      <ol class="mt-4 space-y-2">
+        {sections.map((section, index) => (
+          <li>
+            <a href={`#${section.id}`} class="flex gap-2 text-[0.8125rem] text-forest-muted transition-colors hover:text-forest-dark">
+              <span class="tabular text-[10px] text-warm">{String(index + 1).padStart(2, '0')}</span>
+              {section.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <article class="prose-legal max-w-2xl">
+      <section id="agreement">
+        <h2>1. Agreement</h2>
+        <p>
+          By creating an account or using CashIko, you agree to these terms on behalf of the business you
+          represent. If you do not agree, do not use the service.
+        </p>
+      </section>
+
+      <section id="service">
+        <h2>2. The service</h2>
+        <p>
+          CashIko is a web-based record-keeping tool for small businesses. It records products, sales, utang,
+          payments and expenses, and calculates stock levels and profit from the information you enter.
+        </p>
+        <p>
+          CashIko is not an accounting firm, a tax adviser, or a BIR-accredited point-of-sale system. It does not
+          issue official receipts, and it does not replace the records or receipts the law requires you to keep.
+        </p>
+      </section>
+
+      <section id="accounts">
+        <h2>3. Your account</h2>
+        <ul>
+          <li>You must provide accurate information and keep your login credentials secure.</li>
+          <li>You are responsible for activity carried out under your account, including by staff you give access to.</li>
+          <li>One account represents one business. Do not share an account between unrelated businesses.</li>
+          <li>Tell us promptly if you believe your account has been accessed without permission.</li>
+        </ul>
+      </section>
+
+      <section id="trial">
+        <h2>4. Free trial</h2>
+        <p>
+          New accounts receive a fourteen-day trial of the full service without payment details. When the trial
+          ends, access to paid features requires an active plan. We may change or end trial offers for new
+          accounts at any time; changes do not apply retroactively to a trial already started.
+        </p>
+      </section>
+
+      <section id="plans">
+        <h2>5. Plans and payment</h2>
+        <ul>
+          <li>Basic is ₱99 per month; Premium is ₱199 per month, in Philippine pesos.</li>
+          <li>Fees are payable in advance for each billing period.</li>
+          <li>You can change plans from Settings. Upgrades take effect immediately; downgrades take effect for the next period.</li>
+          <li>Except where required by law, fees already paid are not refundable for a partial period.</li>
+          <li>If a payment fails or a plan lapses, paid features may be suspended. Your records are not deleted immediately.</li>
+        </ul>
+      </section>
+
+      <section id="use">
+        <h2>6. Acceptable use</h2>
+        <p>You agree not to:</p>
+        <ul>
+          <li>Use CashIko for unlawful purposes, including recording fictitious sales or concealing taxable income.</li>
+          <li>Attempt to access another business’s records, or probe, scan or breach the service.</li>
+          <li>Reverse engineer, resell, or provide the service to third parties as your own.</li>
+          <li>Upload malicious files or content that infringes someone else’s rights.</li>
+          <li>Use automated means to extract data beyond the export features we provide.</li>
+        </ul>
+      </section>
+
+      <section id="data">
+        <h2>7. Your records</h2>
+        <p>
+          The data you enter belongs to you. You grant us the licence needed to store, process and display it so
+          the service can function — nothing more. Our privacy policy explains what we collect and how it is
+          handled.
+        </p>
+        <p>
+          You are responsible for the accuracy of what you record and for keeping your own copies of anything
+          you are legally required to retain. Export your data before closing an account.
+        </p>
+      </section>
+
+      <section id="ip">
+        <h2>8. Intellectual property</h2>
+        <p>
+          CashIko, its name, logo, interface and underlying code are owned by us or our licensors. These terms do
+          not transfer any ownership to you. You may not use our marks without written permission.
+        </p>
+      </section>
+
+      <section id="availability">
+        <h2>9. Availability</h2>
+        <p>
+          We work to keep CashIko available, but we do not guarantee uninterrupted service. Maintenance,
+          provider outages and network conditions in your area can affect access. We may change, improve or
+          retire features over time.
+        </p>
+      </section>
+
+      <section id="termination">
+        <h2>10. Suspension and termination</h2>
+        <p>
+          You may stop using CashIko at any time. We may suspend or terminate an account that violates these
+          terms, poses a security risk, or is used unlawfully. Where practical, we will give notice and a chance
+          to export your records first.
+        </p>
+      </section>
+
+      <section id="disclaimers">
+        <h2>11. Disclaimers</h2>
+        <p>
+          CashIko is provided “as is” and “as available”. The figures it shows depend entirely on the data you
+          enter. We do not warrant that the service will be error-free, or that the reports it produces satisfy
+          any particular accounting, tax or regulatory requirement. Decisions you make about your business remain
+          yours.
+        </p>
+      </section>
+
+      <section id="liability">
+        <h2>12. Limitation of liability</h2>
+        <p>
+          To the fullest extent allowed by Philippine law, we are not liable for indirect, incidental or
+          consequential losses, or for lost profits or lost data arising from your use of the service. Where
+          liability cannot be excluded, our total liability for any claim is limited to the fees you paid us in
+          the three months before the event giving rise to the claim.
+        </p>
+        <p>Nothing in these terms limits rights that cannot be waived under Philippine law.</p>
+      </section>
+
+      <section id="law">
+        <h2>13. Governing law</h2>
+        <p>
+          These terms are governed by the laws of the Republic of the Philippines. Disputes will be brought
+          before the proper courts of the Philippines, after a good-faith attempt to resolve the matter directly
+          with us.
+        </p>
+      </section>
+
+      <section id="changes">
+        <h2>14. Changes to these terms</h2>
+        <p>
+          We may update these terms as the service evolves. The date at the top will change, and material changes
+          will be communicated in the app or by email before they take effect. Continuing to use CashIko after a
+          change means you accept the updated terms.
+        </p>
+        <p>
+          Questions: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+        </p>
+      </section>
+    </article>
+  </div>
+</BaseLayout>

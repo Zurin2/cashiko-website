@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Button from '../components/Button.astro';
+import { SITE } from '../lib/site.js';
+
+const day = [
+  { time: '5:00 AM', title: 'Open up', body: 'Coffee, pandesal, load. The first sales are small and constant, and they set the tone for the day.' },
+  { time: '9:00 AM', title: 'The utang list wakes up', body: 'Three customers promise to pay “bukas.” Two actually will. You need to know exactly who is carrying what.' },
+  { time: '12:00 PM', title: 'Lunch rush', body: 'Coke, rice, canned goods, sachets. A queue of five people, and no time to write anything down twice.' },
+  { time: '3:00 PM', title: 'The restock decision', body: 'Is there enough sugar for tomorrow? You cannot answer from memory, and guessing wrong costs a day of sales.' },
+  { time: '7:00 PM', title: 'The count', body: 'Cash in the tin, utang on the page, stock on the shelf. Three records that rarely agree with each other.' },
+];
+
+const comparison = [
+  ['When a sale happens', 'Written after the queue clears — or not at all', 'Recorded in three taps while the customer is still there'],
+  ['Stock level', 'Counted by hand when something looks low', 'Counted down automatically, with a warning before it runs out'],
+  ['Utang balance', 'A page per customer, plus memory', 'One running balance per customer, with due dates'],
+  ['Profit', 'Estimated at the end of the month', 'Sales − cost − expenses, every day'],
+  ['Dead stock', 'Discovered when it expires', 'Flagged after thirty days without a sale'],
+  ['Handover', 'Whoever can read the notebook', 'Anyone with the account, on any phone'],
+];
+
+const numbers = [
+  {
+    label: 'Tubo',
+    body: 'Selling by tingi means margins are measured in centavos per sachet. CashIko keeps the cost per unit, so the small items are never assumed to be free money.',
+  },
+  {
+    label: 'Utang',
+    body: 'The list on the wall is a promise, not a record. A running balance per customer means a partial payment is never forgotten — and never counted twice.',
+  },
+  {
+    label: 'Patay na stock',
+    body: 'Capital sitting on the shelf is capital that cannot be reordered into what actually sells. Thirty days without a sale is enough to call it.',
+  },
+];
+---
+<BaseLayout
+  title="For sari-sari stores"
+  description="CashIko is built around a sari-sari store day: tingi margins, utang lists, restock decisions and the nightly cash count — recorded in three taps."
+>
+  <PageHero
+    eyebrow="For sari-sari stores"
+    title="Built around your day, not around a spreadsheet."
+    lead="A sari-sari store runs on small, constant transactions and a long memory for utang. CashIko was designed for that rhythm — not for a quarterly board report."
+  >
+    <div class="mt-2 flex flex-col gap-3 sm:flex-row">
+      <Button href={SITE.appUrl} variant="primary" size="lg">Start 14-day free trial</Button>
+      <Button href="/features/" variant="outline" size="lg">See all features</Button>
+    </div>
+  </PageHero>
+
+  <!-- A day in the store -->
+  <section class="shell py-14 md:py-20">
+    <div class="grid gap-10 md:grid-cols-[0.75fr_1.25fr] md:gap-16">
+      <div>
+        <p class="eyebrow">One ordinary day</p>
+        <h2 class="mt-3 text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">
+          The store never stops. The records should keep up.
+        </h2>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-forest-muted">
+          None of these moments need a new habit. They need the existing habit to be recorded once, in a place
+          that does the arithmetic.
+        </p>
+      </div>
+
+      <ol class="divide-y divide-warm/60 border-t border-warm/60" data-stagger>
+        {day.map((moment) => (
+          <li class="grid gap-1.5 py-5 sm:grid-cols-[6rem_1fr] sm:gap-5">
+            <span class="tabular text-[11px] font-semibold uppercase tracking-wide text-mango-dark">{moment.time}</span>
+            <div>
+              <h3 class="text-[0.9375rem] font-semibold text-forest-dark">{moment.title}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-forest-muted">{moment.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Notebook vs CashIko -->
+  <section class="border-y border-warm/60 bg-white/50">
+    <div class="shell py-14 md:py-20" data-reveal>
+      <p class="eyebrow">The difference</p>
+      <h2 class="mt-3 max-w-2xl text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">
+        Same store. Same habits. Fewer blanks.
+      </h2>
+
+      <div class="mt-8 overflow-hidden rounded-xl border border-warm bg-white">
+        <table class="w-full border-collapse text-left text-sm">
+          <caption class="sr-only">Notebook compared with CashIko</caption>
+          <thead>
+            <tr class="border-b border-warm/70 bg-cream/50">
+              <th scope="col" class="px-4 py-3 text-[11px] font-semibold uppercase tracking-wide text-forest-muted md:px-6">Moment</th>
+              <th scope="col" class="px-4 py-3 text-[11px] font-semibold uppercase tracking-wide text-forest-muted">Notebook</th>
+              <th scope="col" class="px-4 py-3 text-[11px] font-semibold uppercase tracking-wide text-forest">CashIko</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-warm/50">
+            {comparison.map(([moment, notebook, cashiko]) => (
+              <tr>
+                <th scope="row" class="px-4 py-3.5 text-left font-medium text-forest-dark md:px-6">{moment}</th>
+                <td class="px-4 py-3.5 text-forest-muted">{notebook}</td>
+                <td class="px-4 py-3.5 text-forest-muted">{cashiko}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three numbers -->
+  <section class="shell py-14 md:py-20">
+    <p class="eyebrow">Three numbers</p>
+    <h2 class="mt-3 max-w-xl text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">
+      If you only track three things, track these.
+    </h2>
+    <div class="mt-8 grid gap-8 border-t border-warm/60 pt-8 md:grid-cols-3 md:gap-10" data-stagger>
+      {numbers.map((item) => (
+        <div>
+          <h3 class="font-display text-xl text-forest-dark">{item.label}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-forest-muted">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Also fits -->
+  <section class="shell pb-4">
+    <div class="grid gap-6 rounded-xl border border-warm bg-white/60 p-6 md:grid-cols-[1fr_1.4fr] md:items-center md:p-8" data-reveal>
+      <h2 class="text-lg text-forest-dark">Also used by</h2>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-forest-muted">
+        <li>Karinderya and carinderia stalls</li>
+        <li>Small groceries and mini-marts</li>
+        <li>Water refilling stations</li>
+        <li>Milk tea and snack counters</li>
+        <li>Market stalls with two or three branches</li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Try it with the ten items you sell most."
+    body="If the numbers do not match what you know about your store, tell us — that is exactly the feedback that shapes the product."
+  />
+</BaseLayout>

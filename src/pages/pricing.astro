@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PricingTable from '../components/PricingTable.astro';
+import FaqList from '../components/FaqList.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../lib/site.js';
+
+const billingFaqs = [
+  {
+    q: 'How does the 14-day trial work?',
+    a: 'You get the full product for fourteen days without entering a card. On day fifteen you pick Basic or Premium — or stop. Nothing is charged automatically during the trial.',
+  },
+  {
+    q: 'Can I change plans later?',
+    a: 'Yes. Basic and Premium can be switched from Settings. Upgrading unlocks branches and the assistant immediately; downgrading keeps every record you already have.',
+  },
+  {
+    q: 'How do I pay?',
+    a: 'Billing is in Philippine pesos, monthly. GCash and Maya payments are rolling out — until then, the team arranges payment with you directly after you start.',
+  },
+  {
+    q: 'What happens to my data if I stop paying?',
+    a: 'Your records are not deleted the moment a plan lapses. Export your sales and reports to CSV any time, and ask us if you need a copy of everything.',
+  },
+];
+---
+<BaseLayout
+  title="Pricing"
+  description="CashIko costs ₱99 per month for one store and ₱199 for multi-branch with the AI assistant. Fourteen days free, no credit card."
+>
+  <PageHero
+    eyebrow="Pricing"
+    title="Two prices. No tiers you will never use."
+    lead="Every plan includes the complete books: stock, sales, utang, expenses and real profit. Premium adds branches and the assistant."
+  >
+    <p class="text-[0.8125rem] font-medium text-forest">
+      14 days free · no credit card · switch or cancel from Settings
+    </p>
+  </PageHero>
+
+  <section class="shell py-14 md:py-20" data-reveal>
+    <PricingTable />
+  </section>
+
+  <section class="shell pb-4 md:pb-8">
+    <div class="grid gap-8 rounded-xl border border-warm bg-white/60 p-6 md:grid-cols-3 md:p-8" data-stagger>
+      <div>
+        <h2 class="text-base text-forest-dark">Built for one phone</h2>
+        <p class="mt-2 text-sm leading-relaxed text-forest-muted">
+          One subscription covers the store, not the device. Open CashIko on the counter phone, the owner’s phone
+          and a laptop — same account, same numbers.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-base text-forest-dark">No setup fee</h2>
+        <p class="mt-2 text-sm leading-relaxed text-forest-muted">
+          Add your products yourself in a few minutes, or send us your list and we will help you start.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-base text-forest-dark">Cancel without a phone call</h2>
+        <p class="mt-2 text-sm leading-relaxed text-forest-muted">
+          Plan changes happen inside Settings. No retention scripts, no “call this number to cancel”.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell py-14 md:py-20" data-reveal>
+    <div class="grid gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-16">
+      <div>
+        <p class="eyebrow">Billing questions</p>
+        <h2 class="mt-3 text-[1.6rem] leading-tight text-forest-dark md:text-[1.95rem]">Before you enter anything.</h2>
+        <p class="mt-4 text-sm leading-relaxed text-forest-muted">
+          Still unsure which plan fits? Tell us how many branches you run and we will answer honestly —
+          sometimes the answer is Basic.
+        </p>
+        <a href="/contact/" class="link-quiet mt-4 inline-block text-sm font-medium">Ask a question →</a>
+      </div>
+      <FaqList items={billingFaqs} />
+    </div>
+  </section>
+
+  <CtaBand
+    title="Fourteen days. One store. Your real numbers."
+    body={`Start at ${SITE.appUrl.replace('https://', '')} — no card, no installer, no training required.`}
+  />
+</BaseLayout>
